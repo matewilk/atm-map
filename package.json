@@ -1,0 +1,29 @@
+{
+    "private": true,
+    "name": "atms-map",
+    "version": "0.1.0",
+    "scripts": {
+        "start": "nr1 nerdpack:serve",
+        "test": "exit 0"
+    },
+    "nr1": {
+        "uuid": "18a32e1f-f599-4058-886d-b38bff288c7f"
+    },
+    "dependencies": {
+        "@mapbox/leaflet-pip": "^1.1.0",
+        "leaflet": "^1.6.0",
+        "prop-types": "^15.6.2",
+        "react": "^16.6.3",
+        "react-dom": "^16.6.3",
+        "react-leaflet": "^2.7.0"
+    },
+    "browserslist": [
+        "last 2 versions",
+        "not ie < 11",
+        "not dead"
+    ],
+    "devDependencies": {
+        "prettier": "^2.4.1",
+        "prettify": "^0.1.7"
+    }
+}

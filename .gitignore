@@ -1,0 +1,9 @@
+# IDEs
+.idea
+
+# build
+dist
+tmp
+
+# npm
+node_modules
