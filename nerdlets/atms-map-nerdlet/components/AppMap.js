@@ -4,7 +4,7 @@ import { Map, TileLayer, Marker, Popup } from "react-leaflet";
 import leafletPip from "@mapbox/leaflet-pip";
 leafletPip.bassackwards = true;
 
-import allGeoRegions from "./geo/all-geo-regions";
+import allGeoRegions from "../geo/all-geo-regions";
 import Regions from "./Regions";
 import IncidentMarkers from "./IncidentMarkers";
 
@@ -67,8 +67,8 @@ export default class AppMap extends React.Component {
           url={"https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"} // "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         />
-        <IncidentMarkers incidents={incidents} />
-        <Regions regions={allGeoRegions} incidents={incidents} />
+        <IncidentMarkers />
+        <Regions regions={allGeoRegions} />
       </Map>
     );
   }

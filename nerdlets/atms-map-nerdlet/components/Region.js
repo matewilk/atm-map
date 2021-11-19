@@ -1,8 +1,9 @@
 import React from "react";
 import { GeoJSON, Tooltip } from "react-leaflet";
 import leafletPip from "@mapbox/leaflet-pip";
+import {connect} from "react-redux";
 
-export default class Region extends React.Component {
+class Region extends React.Component {
   calculateIncidents() {
     const { incidents, region } = this.props;
     const gjLayer = L.geoJSON(region);
@@ -63,3 +64,9 @@ export default class Region extends React.Component {
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return { incidents: state.data }
+}
+
+export default connect(mapStateToProps)(Region)

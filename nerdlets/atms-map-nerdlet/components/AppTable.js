@@ -9,8 +9,9 @@ import {
   Grid,
   GridItem,
 } from "nr1";
+import {connect} from "react-redux";
 
-export default class AppTable extends React.Component {
+class AppTable extends React.Component {
   render() {
     const { incidents, filterByStatus } = this.props;
 
@@ -75,3 +76,9 @@ export default class AppTable extends React.Component {
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return { incidents: state.data }
+}
+
+export default connect(mapStateToProps)(AppTable)

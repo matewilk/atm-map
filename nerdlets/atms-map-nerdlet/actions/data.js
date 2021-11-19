@@ -1,4 +1,5 @@
 import { NerdGraphQuery } from "nr1";
+import { FETCH_DATA } from "./index";
 
 export const atmDataQuery = `
   nrql(
@@ -10,7 +11,7 @@ export const atmDataQuery = `
   }
 `;
 
-export const fetchAtmData = ({ id }) => async () => {
+export const fetchAtmData = ({ id }) => async (dispatch) => {
   const query = `
     query($id: Int!) {
       actor {
@@ -24,9 +25,14 @@ export const fetchAtmData = ({ id }) => async () => {
   const variables = { id: parseInt(id) };
   const response = await NerdGraphQuery.query({ query, variables });
 
-  return response.data.actor.account.nrql.results.map((item) => {
+  const payload = response.data.actor.account.nrql.results.map((item) => {
     item.long = item.lon;
     item.state = item.STATE;
     return item;
+  });
+
+  return dispatch({
+    type: FETCH_DATA,
+    payload: payload,
   });
 };

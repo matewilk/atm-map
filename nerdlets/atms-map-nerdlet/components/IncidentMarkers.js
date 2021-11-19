@@ -1,8 +1,8 @@
 import React from "react";
-import incidents from "./data/incidents";
+import {connect} from "react-redux";
 import { Marker, Popup } from "react-leaflet";
 
-export default class IncidentMarkers extends React.Component {
+class IncidentMarkers extends React.Component {
   render() {
     const { incidents } = this.props;
     {
@@ -18,3 +18,9 @@ export default class IncidentMarkers extends React.Component {
     }
   }
 }
+
+const mapStateToProps = (state) => {
+  return { incidents: state.data }
+}
+
+export default connect(mapStateToProps)(IncidentMarkers)

@@ -15,7 +15,10 @@
         "prop-types": "^15.6.2",
         "react": "^16.6.3",
         "react-dom": "^16.6.3",
-        "react-leaflet": "^2.7.0"
+        "react-leaflet": "^2.7.0",
+        "react-redux": "5.1.2",
+        "redux": "^4.0.5",
+        "redux-thunk": "^2.3.0"
     },
     "browserslist": [
         "last 2 versions",
