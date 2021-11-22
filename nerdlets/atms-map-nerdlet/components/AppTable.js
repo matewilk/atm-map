@@ -9,11 +9,13 @@ import {
   Grid,
   GridItem,
 } from "nr1";
-import {connect} from "react-redux";
+import { connect } from "react-redux";
+
+import { setFilterValue } from "../actions";
 
 class AppTable extends React.Component {
   render() {
-    const { incidents, filterByStatus } = this.props;
+    const { incidents, setFilterValue } = this.props;
 
     return (
       <div>
@@ -22,28 +24,32 @@ class AppTable extends React.Component {
             <Checkbox
               label="Available (1)"
               value={1}
-              onChange={filterByStatus}
+              onChange={setFilterValue}
+              defaultChecked
             />
           </GridItem>
           <GridItem columnSpan={3}>
             <Checkbox
               label="Malfunction (2)"
               value={2}
-              onChange={filterByStatus}
+              onChange={setFilterValue}
+              defaultChecked
             />
           </GridItem>
           <GridItem columnSpan={3}>
             <Checkbox
               label="In Service (3)"
               value={3}
-              onChange={filterByStatus}
+              onChange={setFilterValue}
+              defaultChecked
             />
           </GridItem>
           <GridItem columnSpan={3}>
             <Checkbox
               label="Unavailable (9)"
               value={9}
-              onChange={filterByStatus}
+              onChange={setFilterValue}
+              defaultChecked
             />
           </GridItem>
         </Grid>
@@ -78,7 +84,12 @@ class AppTable extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  return { incidents: state.data }
-}
+  return { incidents: state.data.filtered };
+};
 
-export default connect(mapStateToProps)(AppTable)
+const mapDispatchToProps = (dispatch) => ({
+  setFilterValue: (event) =>
+    dispatch(setFilterValue(event.target.value, event.target.checked)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(AppTable);

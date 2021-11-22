@@ -67,7 +67,7 @@ class Region extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  return { incidents: state.data };
+  return { incidents: state.data.filtered };
 };
 
 export default connect(mapStateToProps)(Region);

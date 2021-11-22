@@ -44,12 +44,11 @@ export default class AppMap extends React.Component {
     const [lat, long] = viewport.center
       ? viewport.center
       : [this.state.center.lat, this.state.center.long];
-    const tooltips = document.getElementsByClassName("custom-tooltip");
 
+    const tooltips = document.getElementsByClassName("custom-tooltip");
     for (let i = 0; i < tooltips.length; i++) {
       const tooltip = tooltips[i];
-      const size = zoomLevel * 3 + "px";
-      tooltip.style.fontSize = size;
+      tooltip.style.fontSize = zoomLevel * 3 + "px";
     }
     this.setState({ currentZoom: zoomLevel, center: { lat, long } });
   };
