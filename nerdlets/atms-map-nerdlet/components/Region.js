@@ -1,7 +1,7 @@
 import React from "react";
 import { GeoJSON, Tooltip } from "react-leaflet";
 import leafletPip from "@mapbox/leaflet-pip";
-import {connect} from "react-redux";
+import { connect } from "react-redux";
 
 class Region extends React.Component {
   calculateIncidents() {
@@ -30,17 +30,17 @@ class Region extends React.Component {
     const total = 10;
 
     // percentage
-    return (total - incidentsNumber) / total * 100;
+    return ((total - incidentsNumber) / total) * 100;
   }
 
   getColor(percentage) {
-    let color = 'grey'
-    if(percentage >= 99) {
-      color = 'green';
+    let color = "grey";
+    if (percentage >= 99) {
+      color = "green";
     } else if (percentage >= 90) {
-      color = 'yellow';
+      color = "yellow";
     } else if (percentage <= 85) {
-      color = 'red'
+      color = "red";
     }
     return color;
   }
@@ -49,8 +49,9 @@ class Region extends React.Component {
     const { region } = this.props;
     const percentage = this.getPercentage();
     const color = this.getColor(percentage);
+    const style = () => ({ color: "white", fillColor: color });
     return (
-      <GeoJSON data={region} style={{ color: "white", fillColor: color }}>
+      <GeoJSON data={region} style={style}>
         <Tooltip
           direction="center"
           offset={[0, 0]}
@@ -58,7 +59,7 @@ class Region extends React.Component {
           permanent
           className="custom-tooltip"
         >
-          {percentage + "%"}
+          {`${percentage}%`}
         </Tooltip>
       </GeoJSON>
     );
@@ -66,7 +67,7 @@ class Region extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  return { incidents: state.data }
-}
+  return { incidents: state.data };
+};
 
-export default connect(mapStateToProps)(Region)
+export default connect(mapStateToProps)(Region);

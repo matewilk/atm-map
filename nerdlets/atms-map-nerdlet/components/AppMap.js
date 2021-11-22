@@ -22,21 +22,28 @@ export default class AppMap extends React.Component {
     this.state = {
       center: {
         // Germany
-        long: "51.1657",
-        lat: "10.4515",
+        lat: "51.1657",
+        long: "10.4515",
       },
-      zoom: 6,
+      currentZoom: 6,
+      mapChangeZoom: 6,
     };
   }
 
   // change tooltip font size on initial render
   componentDidMount() {
-    setTimeout(() => this.onViewportChanged({ zoom: this.state.zoom }), 0);
+    setTimeout(
+      () => this.onViewportChanged({ zoom: this.state.currentZoom }),
+      0
+    );
   }
 
   // change tooltip font size on zoom
   onViewportChanged = (viewport) => {
     const zoomLevel = viewport.zoom;
+    const [lat, long] = viewport.center
+      ? viewport.center
+      : [this.state.center.lat, this.state.center.long];
     const tooltips = document.getElementsByClassName("custom-tooltip");
 
     for (let i = 0; i < tooltips.length; i++) {
@@ -44,27 +51,32 @@ export default class AppMap extends React.Component {
       const size = zoomLevel * 3 + "px";
       tooltip.style.fontSize = size;
     }
+    this.setState({ currentZoom: zoomLevel, center: { lat, long } });
   };
 
   render() {
-    const { center, zoom } = this.state;
+    const { center, currentZoom, mapChangeZoom } = this.state;
+    const changeLayers = currentZoom > mapChangeZoom;
+    const url = changeLayers
+      ? "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+      : "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png";
     return (
       <Map
         ref={(ref) => {
           this.map = ref;
         }}
         viewport={{
-          center: [parseFloat(center.long), parseFloat(center.lat)],
-          zoom: zoom,
+          center: [parseFloat(center.lat), parseFloat(center.long)],
+          zoom: currentZoom,
         }}
         onViewportChanged={this.onViewportChanged}
         className="container-map"
       >
         <TileLayer
-          url={"https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"} // "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
+          url={url}
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         />
-        <IncidentMarkers />
+        {changeLayers ? <IncidentMarkers /> : null}
         <Regions regions={allGeoRegions} />
       </Map>
     );
