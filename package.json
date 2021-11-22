@@ -12,10 +12,12 @@
     "dependencies": {
         "@mapbox/leaflet-pip": "^1.1.0",
         "leaflet": "^1.6.0",
+        "leaflet.markercluster": "^1.5.3",
         "prop-types": "^15.6.2",
         "react": "^16.6.3",
         "react-dom": "^16.6.3",
         "react-leaflet": "^2.7.0",
+        "react-leaflet-markercluster": "^2.0.0",
         "react-redux": "5.1.2",
         "redux": "^4.0.5",
         "redux-thunk": "^2.3.0"
@@ -26,7 +28,6 @@
         "not dead"
     ],
     "devDependencies": {
-        "prettier": "^2.4.1",
-        "prettify": "^0.1.7"
+        "prettier": "^2.4.1"
     }
 }

@@ -8,8 +8,6 @@ import allGeoRegions from "../geo/all-geo-regions";
 import Regions from "./Regions";
 import IncidentMarkers from "./IncidentMarkers";
 
-// https://docs.newrelic.com/docs/new-relic-programmable-platform-introduction
-
 import icon from "leaflet/dist/images/marker-icon.png";
 import iconShadow from "leaflet/dist/images/marker-shadow.png";
 let DefaultIcon = L.icon({
@@ -50,7 +48,6 @@ export default class AppMap extends React.Component {
 
   render() {
     const { center, zoom } = this.state;
-    const { incidents } = this.props;
     return (
       <Map
         ref={(ref) => {
