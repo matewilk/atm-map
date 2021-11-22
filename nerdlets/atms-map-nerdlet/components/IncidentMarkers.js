@@ -13,7 +13,10 @@ class IncidentMarkers extends React.Component {
             <Marker
               position={[parseFloat(incident.lat), parseFloat(incident.long)]}
             >
-              <Popup>{incident.name}</Popup>
+              <Popup>
+                {`Name: ${incident.name} `}
+                <br /> {`Status: ${incident.state}`}
+              </Popup>
             </Marker>
           );
         })}
