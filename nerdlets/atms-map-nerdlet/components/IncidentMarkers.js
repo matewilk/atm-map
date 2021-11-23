@@ -13,7 +13,10 @@ class IncidentMarkers extends React.Component {
             <Marker
               position={[parseFloat(incident.lat), parseFloat(incident.long)]}
             >
-              <Popup>{incident.name}</Popup>
+              <Popup>
+                {`Name: ${incident.name} `}
+                <br /> {`Status: ${incident.state}`}
+              </Popup>
             </Marker>
           );
         })}
@@ -23,7 +26,7 @@ class IncidentMarkers extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  return { incidents: state.data };
+  return { incidents: state.data.filtered };
 };
 
 export default connect(mapStateToProps)(IncidentMarkers);

@@ -11,7 +11,8 @@ export const atmDataQuery = `
   }
 `;
 
-export const fetchAtmData = ({ id }) => async (dispatch) => {
+export const fetchAtmData = ({ id }) => async (dispatch, getState) => {
+  const { filter } = getState();
   const query = `
     query($id: Int!) {
       actor {
@@ -25,7 +26,7 @@ export const fetchAtmData = ({ id }) => async (dispatch) => {
   const variables = { id: parseInt(id) };
   const response = await NerdGraphQuery.query({ query, variables });
 
-  const payload = response.data.actor.account.nrql.results.map((item) => {
+  const data = response.data.actor.account.nrql.results.map((item) => {
     item.long = item.lon;
     item.state = item.STATE;
     return item;
@@ -33,6 +34,6 @@ export const fetchAtmData = ({ id }) => async (dispatch) => {
 
   return dispatch({
     type: FETCH_DATA,
-    payload: payload,
+    payload: { data, filter },
   });
 };

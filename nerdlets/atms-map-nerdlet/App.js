@@ -12,14 +12,16 @@ class App extends React.Component {
     super(props);
     this.state = {
       intervalHandler: null,
+      interval: 10000
     };
     this.filters = [];
   }
 
   async componentDidMount() {
     const { poll } = this.props;
+    const { interval } = this.state;
     poll();
-    const handler = setInterval(poll, 10000);
+    const handler = setInterval(poll, interval);
     this.setState({ intervalHandler: handler })
   }
 

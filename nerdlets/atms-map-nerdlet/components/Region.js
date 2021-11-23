@@ -15,7 +15,7 @@ class Region extends React.Component {
         gjLayer
       );
       if (pointInPolygon.length > 0) {
-        acc.push(pointInPolygon[0]);
+        acc.push(incident);
       }
       return acc;
     }, []);
@@ -23,14 +23,20 @@ class Region extends React.Component {
     return incidentsInRegion;
   }
 
+  alertCount(incidentsInRegion) {
+    const filter = ["2", "9"]; // malfunction, unavailable
+    const alerts = incidentsInRegion.filter((incident) =>
+      filter.includes(incident.state)
+    );
+    return alerts.length;
+  }
+
   getPercentage() {
     const incidentsCount = this.calculateIncidents();
-    const incidentsNumber = incidentsCount.length;
-    // fake total
-    const total = 10;
-
+    const alerting = this.alertCount(incidentsCount);
+    const total = incidentsCount.length;
     // percentage
-    return ((total - incidentsNumber) / total) * 100;
+    return (((total - alerting) / total) * 100).toFixed(2);
   }
 
   getColor(percentage) {
@@ -67,7 +73,7 @@ class Region extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  return { incidents: state.data };
+  return { incidents: state.data.filtered };
 };
 
 export default connect(mapStateToProps)(Region);
