@@ -4,7 +4,7 @@ import { FETCH_DATA } from "./index";
 export const atmDataQuery = `
   nrql(
     query:
-      "SELECT * FROM NewRelicPocTerminal SINCE 5 MINUTES AGO"
+      "SELECT * FROM NewRelicPocTerminal SINCE 5 MINUTES AGO LIMIT 500"
   )
   {
     results

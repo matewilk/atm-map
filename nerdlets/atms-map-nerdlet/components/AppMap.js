@@ -38,18 +38,24 @@ export default class AppMap extends React.Component {
     );
   }
 
-  // change tooltip font size on zoom
-  onViewportChanged = (viewport) => {
-    const zoomLevel = viewport.zoom;
-    const [lat, long] = viewport.center
-      ? viewport.center
-      : [this.state.center.lat, this.state.center.long];
-
+  setTooltipFontSize(zoomLevel) {
     const tooltips = document.getElementsByClassName("custom-tooltip");
     for (let i = 0; i < tooltips.length; i++) {
       const tooltip = tooltips[i];
       tooltip.style.fontSize = zoomLevel * 3 + "px";
     }
+  }
+
+  // change tooltip font size on zoom in/out
+  onViewportChanged = (viewport) => {
+    const { center } = this.state;
+    const [lat, long] = viewport.center
+      ? viewport.center
+      : [center.lat, center.long];
+
+    const zoomLevel = viewport.zoom;
+    this.setTooltipFontSize(zoomLevel);
+
     this.setState({ currentZoom: zoomLevel, center: { lat, long } });
   };
 

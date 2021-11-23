@@ -8,15 +8,22 @@ import {
   Checkbox,
   Grid,
   GridItem,
+  Badge,
 } from "nr1";
 import { connect } from "react-redux";
 
 import { setFilterValue } from "../actions";
 
 class AppTable extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      total: 0,
+    };
+  }
+
   render() {
     const { incidents, setFilterValue } = this.props;
-
     return (
       <div>
         <Grid style={{ padding: "15px" }}>
@@ -53,6 +60,11 @@ class AppTable extends React.Component {
             />
           </GridItem>
         </Grid>
+
+        <Badge style={{ margin: "0 15px" }} type={Badge.TYPE.INFO}>
+          {`Total: ${incidents.length}`}
+        </Badge>
+
         <Table items={incidents}>
           <TableHeader>
             <TableHeaderCell value={({ item }) => item.name} width="50%">

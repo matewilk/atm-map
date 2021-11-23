@@ -7,7 +7,7 @@ class IncidentMarkers extends React.Component {
   render() {
     const { incidents } = this.props;
     return (
-      <MarkerClusterGroup>
+      <MarkerClusterGroup singleMarkerMode={true}>
         {incidents.map((incident) => {
           return (
             <Marker

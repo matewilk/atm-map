@@ -41,12 +41,12 @@ class Region extends React.Component {
 
   getColor(percentage) {
     let color = "grey";
-    if (percentage >= 99) {
-      color = "green";
-    } else if (percentage >= 90) {
-      color = "yellow";
-    } else if (percentage <= 85) {
+    if (percentage <= 85) {
       color = "red";
+    } else if (percentage <= 90) {
+      color = "yellow";
+    } else if (percentage <= 100) {
+      color = "green";
     }
     return color;
   }
