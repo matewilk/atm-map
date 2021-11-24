@@ -1,8 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Grid, GridItem } from "nr1";
+import { Grid, GridItem, Layout, CollapsibleLayoutItem, LayoutItem } from "nr1";
 
-import * as actions from "./actions"
+import * as actions from "./actions";
 
 import AppMap from "./components/AppMap";
 import AppTable from "./components/AppTable";
@@ -12,9 +12,9 @@ class App extends React.Component {
     super(props);
     this.state = {
       intervalHandler: null,
-      interval: 10000
+      interval: 30000,
+      showPanel: false,
     };
-    this.filters = [];
   }
 
   async componentDidMount() {
@@ -22,7 +22,7 @@ class App extends React.Component {
     const { interval } = this.state;
     poll();
     const handler = setInterval(poll, interval);
-    this.setState({ intervalHandler: handler })
+    this.setState({ intervalHandler: handler });
   }
 
   componentWillUnmount() {
@@ -30,34 +30,41 @@ class App extends React.Component {
     this.setState({ intervalHandler: null });
   }
 
-  filterByStatus(event) {
-    if (event.target.checked) {
-      this.filters = [...this.filters, event.target.value];
-    } else {
-      this.filters.splice(this.filters.indexOf(event.target.value), 1);
-    }
-    const filtered = incidents.filter(
-      (incident) => this.filters.includes(incident.state) // && incident.type == 'BT' // GAA, KEGA
-    );
-    this.setState({
-      incidents: this.filters.length > 0 ? filtered : incidents,
-    });
+  onChangeCollapsed(event, collapsed) {
+    this.setState({ showPanel: !collapsed });
   }
 
   render() {
+    // return (
+    //   <Grid style={{ height: "100%" }}>
+    //     <GridItem columnSpan={6}>
+    //       <AppMap />
+    //     </GridItem>
+    //     <GridItem columnSpan={6} style={{ overflow: "auto" }}>
+    //       <AppTable />
+    //     </GridItem>
+    //   </Grid>
+    // );
+    const { showPanel } = this.state;
+    const classes = showPanel ? "show-side-panel" : null;
     return (
-      <Grid style={{ height: "100%" }}>
-        <GridItem columnSpan={6}>
+      <Layout fullHeight style={{ overflowX: "hidden" }}>
+        <LayoutItem>
           <AppMap />
-        </GridItem>
-        <GridItem columnSpan={6} style={{ overflow: "auto" }}>
-          <AppTable
-            filterByStatus={this.filterByStatus.bind(this)}
-          />
-        </GridItem>
-      </Grid>
+        </LayoutItem>
+
+        <CollapsibleLayoutItem
+          className={classes}
+          triggerType={CollapsibleLayoutItem.TRIGGER_TYPE.INBUILT}
+          type={CollapsibleLayoutItem.TYPE.SPLIT_RIGHT}
+          defaultCollapsed={true}
+          onChangeCollapsed={this.onChangeCollapsed.bind(this)}
+        >
+          <AppTable />
+        </CollapsibleLayoutItem>
+      </Layout>
     );
   }
 }
 
-export default connect(null, actions)(App)
+export default connect(null, actions)(App);

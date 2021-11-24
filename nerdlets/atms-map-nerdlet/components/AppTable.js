@@ -25,7 +25,7 @@ class AppTable extends React.Component {
   render() {
     const { incidents, setFilterValue } = this.props;
     return (
-      <div>
+      <>
         <Grid style={{ padding: "15px" }}>
           <GridItem columnSpan={3}>
             <Checkbox
@@ -67,7 +67,7 @@ class AppTable extends React.Component {
 
         <Table items={incidents}>
           <TableHeader>
-            <TableHeaderCell value={({ item }) => item.name} width="50%">
+            <TableHeaderCell value={({ item }) => item.name} width="40%">
               Name
             </TableHeaderCell>
             <TableHeaderCell value={({ item }) => item.long}>
@@ -90,7 +90,7 @@ class AppTable extends React.Component {
             </TableRow>
           )}
         </Table>
-      </div>
+      </>
     );
   }
 }
