@@ -15,13 +15,6 @@ import { connect } from "react-redux";
 import { setFilterValue } from "../actions";
 
 class AppTable extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      total: 0,
-    };
-  }
-
   render() {
     const { incidents, setFilterValue } = this.props;
     return (

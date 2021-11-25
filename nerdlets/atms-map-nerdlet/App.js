@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Grid, GridItem, Layout, CollapsibleLayoutItem, LayoutItem } from "nr1";
+import { Layout, CollapsibleLayoutItem, LayoutItem } from "nr1";
 
 import * as actions from "./actions";
 
@@ -32,19 +32,12 @@ class App extends React.Component {
 
   onChangeCollapsed(event, collapsed) {
     this.setState({ showPanel: !collapsed });
+    // this forces the leaflet to rerender (center) the map in the available view
+    // when the panel opens, the map re-centers in the view!
+    setTimeout(() => window.dispatchEvent(new Event('resize')), 0)
   }
 
   render() {
-    // return (
-    //   <Grid style={{ height: "100%" }}>
-    //     <GridItem columnSpan={6}>
-    //       <AppMap />
-    //     </GridItem>
-    //     <GridItem columnSpan={6} style={{ overflow: "auto" }}>
-    //       <AppTable />
-    //     </GridItem>
-    //   </Grid>
-    // );
     const { showPanel } = this.state;
     const classes = showPanel ? "show-side-panel" : null;
     return (
