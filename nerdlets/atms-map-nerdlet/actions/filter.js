@@ -1,9 +1,9 @@
 import {APPLY_FILTER, SET_FILTER_VALUE} from "./index";
 
-export const setFilterValue = (value, checked) => (dispatch) => {
+export const setFilterValue = (type, value, checked) => (dispatch) => {
   dispatch({
     type: SET_FILTER_VALUE,
-    payload: { value, checked },
+    payload: { type, value, checked },
   });
 
   dispatch(applyFilter())

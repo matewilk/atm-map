@@ -29,6 +29,7 @@ export const fetchAtmData = ({ id }) => async (dispatch, getState) => {
   const data = response.data.actor.account.nrql.results.map((item) => {
     item.long = item.lon;
     item.state = item.STATE;
+    item.device = item.DEVICE_TYPE;
     return item;
   });
 

@@ -6,6 +6,9 @@ export const FETCH_DATA = "FETCH_DATA";
 export const SET_FILTER_VALUE = "SET_FILTER_VALUE";
 export const APPLY_FILTER = "APPLY_FILTER";
 
+export const FILTER_TYPE_STATUS = "status";
+export const FILTER_TYPE_DEVICE = "device";
+
 export const poll = () => async (dispatch) => {
   dispatch(fetchAtmData({ id: 2674886 }));
 };

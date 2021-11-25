@@ -9,7 +9,8 @@ export default ({ children, initialState = {} }) => {
   const store = createStore(reducers, initialState, applyMiddleware(ReduxThunk));
 
   store.subscribe(() => {
-    console.log(store.getState())
+    const state = store.getState();
+    console.log(state.filter)
   });
 
   return <Provider store={store}>{children}</Provider>;

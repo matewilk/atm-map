@@ -11,14 +11,16 @@ export default (state = initialState, action) => {
       return {
         data: action.payload.data,
         filtered: action.payload.data.filter((incident) =>
-          action.payload.filter.includes(incident.state)
+          action.payload.filter.status.includes(incident.state)
         ),
       };
     case APPLY_FILTER:
       return {
         data: state.data,
-        filtered: state.data.filter((incident) =>
-          action.payload.filter.includes(incident.state)
+        filtered: state.data.filter(
+          (incident) =>
+            action.payload.filter.status.includes(incident.state) &&
+            action.payload.filter.device.includes(incident.device)
         ),
       };
     default:
