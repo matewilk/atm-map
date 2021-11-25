@@ -30,6 +30,9 @@ export const fetchAtmData = ({ id }) => async (dispatch, getState) => {
     item.long = item.lon;
     item.state = item.STATE;
     item.device = item.DEVICE_TYPE;
+    item.manufacturer_id = item.MANUFACTURER_ID;
+    item.terminal_id = item.TERMINAL_ID;
+    item.zipcode = item.ZIPCODE;
     return item;
   });
 

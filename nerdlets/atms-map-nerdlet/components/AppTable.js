@@ -5,124 +5,37 @@ import {
   TableHeaderCell,
   TableRow,
   TableRowCell,
-  Checkbox,
-  Grid,
-  GridItem,
-  Badge,
-  HeadingText,
   Spacing,
 } from "nr1";
 import { connect } from "react-redux";
 
-import {
-  setFilterValue,
-  FILTER_TYPE_DEVICE,
-  FILTER_TYPE_STATUS,
-} from "../actions";
+import { STATE_MAP } from "../actions";
+
+import Filters from "./Filters";
+import InfoBadges from "./InfoBadges";
 
 class AppTable extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      total: 0,
-    };
-  }
-
   render() {
-    const { incidents, setFilterValue } = this.props;
+    const { incidents } = this.props;
     return (
       <>
-        <Spacing type={[Spacing.TYPE.MEDIUM]}>
-          <HeadingText type={HeadingText.TYPE.HEADING_5}>
-            Filter by status:
-          </HeadingText>
-        </Spacing>
-        <Spacing type={[Spacing.TYPE.MEDIUM]}>
-          <Grid>
-            <GridItem columnSpan={3}>
-              <Checkbox
-                label="Available (1)"
-                value={1}
-                onChange={setFilterValue(FILTER_TYPE_STATUS)}
-                defaultChecked
-              />
-            </GridItem>
-            <GridItem columnSpan={3}>
-              <Checkbox
-                label="Malfunction (2)"
-                value={2}
-                onChange={setFilterValue(FILTER_TYPE_STATUS)}
-                defaultChecked
-              />
-            </GridItem>
-            <GridItem columnSpan={3}>
-              <Checkbox
-                label="In Service (3)"
-                value={3}
-                onChange={setFilterValue(FILTER_TYPE_STATUS)}
-                defaultChecked
-              />
-            </GridItem>
-            <GridItem columnSpan={3}>
-              <Checkbox
-                label="Unavailable (9)"
-                value={9}
-                onChange={setFilterValue(FILTER_TYPE_STATUS)}
-                defaultChecked
-              />
-            </GridItem>
-          </Grid>
-        </Spacing>
-
-        <Spacing type={[Spacing.TYPE.MEDIUM]}>
-          <HeadingText type={HeadingText.TYPE.HEADING_5}>
-            Filter by device:
-          </HeadingText>
-        </Spacing>
-        <Spacing type={[Spacing.TYPE.MEDIUM]}>
-          <Grid>
-            <GridItem columnSpan={3}>
-              <Checkbox
-                label="KEGA"
-                value={"KEGA"}
-                onChange={setFilterValue(FILTER_TYPE_DEVICE)}
-                defaultChecked
-              />
-            </GridItem>
-            <GridItem columnSpan={3}>
-              <Checkbox
-                label="BT"
-                value={"BT"}
-                onChange={setFilterValue(FILTER_TYPE_DEVICE)}
-                defaultChecked
-              />
-            </GridItem>
-            <GridItem columnSpan={3}>
-              <Checkbox
-                label="GAA"
-                value={"GAA"}
-                onChange={setFilterValue(FILTER_TYPE_DEVICE)}
-                defaultChecked
-              />
-            </GridItem>
-          </Grid>
-        </Spacing>
-
-        <Spacing type={[Spacing.TYPE.MEDIUM]}>
-          <Badge type={Badge.TYPE.INFO}>{`Total: ${incidents.length}`}</Badge>
-        </Spacing>
+        <Filters />
+        <InfoBadges />
 
         <Spacing type={[Spacing.TYPE.MEDIUM]}>
           <Table items={incidents}>
             <TableHeader>
-              <TableHeaderCell value={({ item }) => item.name} width="40%">
-                Name
+              <TableHeaderCell value={({ item }) => item.terminal_id}>
+                Terminal ID
               </TableHeaderCell>
-              <TableHeaderCell value={({ item }) => item.long}>
-                Long
+              <TableHeaderCell value={({ item }) => item.manufacturer_id}>
+                Manufacturer ID
               </TableHeaderCell>
-              <TableHeaderCell value={({ item }) => item.lat}>
-                Lat
+              <TableHeaderCell value={({ item }) => item.device}>
+                Device Type
+              </TableHeaderCell>
+              <TableHeaderCell value={({ item }) => item.zipcode}>
+                Zipcode
               </TableHeaderCell>
               <TableHeaderCell value={({ item }) => item.state}>
                 Status
@@ -131,10 +44,11 @@ class AppTable extends React.Component {
 
             {({ item }) => (
               <TableRow>
-                <TableRowCell>{item.name}</TableRowCell>
-                <TableRowCell>{item.long}</TableRowCell>
-                <TableRowCell>{item.lat}</TableRowCell>
-                <TableRowCell>{item.state}</TableRowCell>
+                <TableRowCell>{item.terminal_id}</TableRowCell>
+                <TableRowCell>{item.manufacturer_id}</TableRowCell>
+                <TableRowCell>{item.device}</TableRowCell>
+                <TableRowCell>{item.zipcode}</TableRowCell>
+                <TableRowCell>{STATE_MAP[item.state]}</TableRowCell>
               </TableRow>
             )}
           </Table>
@@ -148,9 +62,4 @@ const mapStateToProps = (state) => {
   return { incidents: state.data.filtered };
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  setFilterValue: (type) => (event) =>
-    dispatch(setFilterValue(type, event.target.value, event.target.checked)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(AppTable);
+export default connect(mapStateToProps)(AppTable);
