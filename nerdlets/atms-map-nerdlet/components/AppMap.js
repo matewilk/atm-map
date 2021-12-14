@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Map, TileLayer, Marker, Popup } from "react-leaflet";
+import { Map, TileLayer } from "react-leaflet";
 import leafletPip from "@mapbox/leaflet-pip";
 leafletPip.bassackwards = true;
 

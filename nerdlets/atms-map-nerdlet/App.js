@@ -12,7 +12,7 @@ class App extends React.Component {
     super(props);
     this.state = {
       intervalHandler: null,
-      interval: 30000,
+      interval: 1200000,
       showPanel: false,
     };
   }

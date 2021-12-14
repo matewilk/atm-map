@@ -25,7 +25,7 @@ class AppTable extends React.Component {
         <Spacing type={[Spacing.TYPE.MEDIUM]}>
           <Table items={incidents}>
             <TableHeader>
-              <TableHeaderCell value={({ item }) => item.terminal_id}>
+              <TableHeaderCell value={({ item }) => item.terminal_id} width={"25%"}>
                 Terminal ID
               </TableHeaderCell>
               <TableHeaderCell value={({ item }) => item.manufacturer_id}>
